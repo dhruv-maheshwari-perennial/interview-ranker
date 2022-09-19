@@ -1,0 +1,15 @@
+spring:
+  main:
+    banner-mode: "off"
+
+  output:
+    ansi:
+      enabled: always
+
+logging:
+  file:
+    name: logs/interview_ranker.log
+    path: logs/
+
+server:
+  port: 9000

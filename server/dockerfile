@@ -1,0 +1,9 @@
+FROM node:latest
+WORKDIR /data
+COPY /node_modules .
+COPY package*.json .
+RUN npm install -g json-server
+COPY db.json .
+EXPOSE 8080
+CMD [ "npm", "run", "json:server" ]
+# CMD [ "json-server", "--port", "8080", "--host", "0.0.0.0" ]
