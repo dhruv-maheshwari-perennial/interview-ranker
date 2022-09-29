@@ -1,6 +1,6 @@
 package com.ranker.interviewranker.controller;
 
-import com.ranker.interviewranker.service.FetchInterviewsService;
+import com.ranker.interviewranker.service.ConsumerService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -17,14 +17,14 @@ import org.springframework.web.bind.annotation.RestController;
 public class ConsumerController {
 
     @Autowired
-    private FetchInterviewsService fetchInterviewsService;
+    private ConsumerService consumerService;
 
     /**
      * getAllInterviews() method call the API which returns the array or list of interviews
      */
-    @GetMapping("/consume/all/interviews")
-    public ResponseEntity<Object> getInterviews() {
+    @GetMapping("/fetch/interviews")
+    public ResponseEntity<Object> fetchInterviews() {
         log.debug("Started function - getInterviews()");
-        return fetchInterviewsService.getAllInterviews();
+        return consumerService.getAllInterviews();
     }
 }
