@@ -16,7 +16,7 @@ public class ResponseHandler {
         res.put("data", responseObj);
         res.put("version", VERSION);
         res.put("total count", totalCount);
-        res.put("date", dateTime);
+        res.put("responseDate", dateTime);
 
         return new ResponseEntity<>(res, HttpStatus.valueOf(status));
     }
@@ -27,7 +27,7 @@ public class ResponseHandler {
         res.put("message", message);
         res.put("data", responseObj);
         res.put("version", VERSION);
-        res.put("date", dateTime);
+        res.put("responseDate", dateTime);
 
         return new ResponseEntity<>(res, HttpStatus.valueOf(status));
     }

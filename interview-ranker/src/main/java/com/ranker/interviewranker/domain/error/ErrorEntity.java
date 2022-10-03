@@ -14,8 +14,8 @@ public class ErrorEntity {
     private LocalDateTime timeStamp;
     private HttpStatus status;
     private String error;
-//    private Exception exception;
     private String errorMsg;
+//    private Exception exception;
 //    private String path;
 //    "timestamp": 1488058582764,
 //            "status": 429,

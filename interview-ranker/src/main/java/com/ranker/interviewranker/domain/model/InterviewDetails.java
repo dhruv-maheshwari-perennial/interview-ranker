@@ -1,4 +1,4 @@
-package com.ranker.interviewranker.domain.request.interview;
+package com.ranker.interviewranker.domain.model;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -6,11 +6,10 @@ import lombok.*;
 
 import java.time.LocalDateTime;
 
-@ToString
-@NoArgsConstructor
-@AllArgsConstructor
 @Getter
 @Setter
+@ToString
+@NoArgsConstructor
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class InterviewDetails {
    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")

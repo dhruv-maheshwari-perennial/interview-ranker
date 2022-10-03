@@ -11,7 +11,7 @@ public class ErrorResponseHandler {
 
     public static ResponseEntity<Object> errorResponse(ErrorEntity errorEntity) {
         Map<String, ErrorEntity> errorMap = new HashMap<>();
-        errorMap.put("error response", errorEntity);
+        errorMap.put("response", errorEntity);
         return new ResponseEntity<>(errorMap, errorEntity.getStatus());
     }
 }
