@@ -1,8 +1,8 @@
 package com.ranker.interviewranker.service.impl;
 
 import com.ranker.interviewranker.domain.error.ErrorEntity;
-import com.ranker.interviewranker.domain.request.interview.InterviewDetails;
-import com.ranker.interviewranker.domain.request.interview.Interviews;
+import com.ranker.interviewranker.domain.model.InterviewDetails;
+import com.ranker.interviewranker.domain.model.Interviews;
 import com.ranker.interviewranker.domain.response.ErrorResponseHandler;
 import com.ranker.interviewranker.domain.response.ResponseHandler;
 import com.ranker.interviewranker.service.ConsumerService;
@@ -25,17 +25,6 @@ public class ConsumerServiceImpl implements ConsumerService {
     @Autowired
     private WebClient.Builder webClientBuilder;
 
-    private InterviewDetails[] getInterviews() {
-        log.debug("Inside function - getInterview()");
-
-        return webClientBuilder.build()
-                .get()
-                .uri(BASE_URL)
-                .retrieve()
-                .bodyToMono(InterviewDetails[].class)
-                .block();
-    }
-
     @Override
     public ResponseEntity<Object> getAllInterviews() {
         Interviews interviews = new Interviews();
@@ -47,5 +36,16 @@ public class ConsumerServiceImpl implements ConsumerService {
 
         interviews.setInterviews(allInterviews);
         return ResponseHandler.resHandler("Successfully fetched", HttpStatus.OK.value(), interviews.getInterviews(), (long) allInterviews.size(), LocalDateTime.now());
+    }
+
+    private InterviewDetails[] getInterviews() {
+        log.debug("Inside function - getInterview()");
+
+        return webClientBuilder.build()
+                .get()
+                .uri(BASE_URL)
+                .retrieve()
+                .bodyToMono(InterviewDetails[].class)
+                .block();
     }
 }
