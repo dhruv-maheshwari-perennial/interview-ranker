@@ -15,9 +15,21 @@ public class InterviewTrackController {
     @Autowired
     private InterviewTrackService interviewTrackService;
 
-    @PostMapping("/interview-track")
-    public ResponseEntity<Object> insertInterviewTrackField(@RequestBody InterviewTrackDTO interviewTrackDTO) {
+    @PostMapping("/add/interview-track")
+    public ResponseEntity<Object> addInterviewTrackField(@RequestBody InterviewTrackDTO interviewTrackDTO) {
         log.debug("Started function - insertInterviewTrackField()");
         return interviewTrackService.saveInterviewTrackField(interviewTrackDTO);
+    }
+
+    @GetMapping("/all/interview-tracks")
+    public ResponseEntity<Object> getAllInterviewTracks() {
+        log.debug("Started function - getAllInterviewTracks");
+        return interviewTrackService.getFieldsTrack();
+    }
+
+    @GetMapping("/all/interview-tracks/{interviewTrack}")
+    public ResponseEntity<Object> getInterviewTracksFieldsByTrack(@PathVariable String interviewTrack) {
+        log.debug("Started function - getInterviewTracksFieldsByTrack");
+        return interviewTrackService.getFieldsByTrack(interviewTrack);
     }
 }
