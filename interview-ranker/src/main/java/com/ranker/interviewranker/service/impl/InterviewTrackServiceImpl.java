@@ -37,7 +37,7 @@ public class InterviewTrackServiceImpl implements InterviewTrackService {
         interviewTrackDTO.setCreatedAt(LocalDateTime.now());
         interviewTrackDTO.setUpdatedAt(LocalDateTime.now());
         InterviewTrackDTO result = interviewTrackRepository.insert(interviewTrackDTO);
-        return ResponseHandler.resHandler("Successfully saved in db", HttpStatus.OK.value(), result, (long) interviewTrackDTO.getInterviewTrackFieldsList().size(), LocalDateTime.now());
+        return ResponseHandler.resHandler("Successfully saved in db", HttpStatus.OK.value(), result, (long) interviewTrackDTO.getInterviewTrackFieldsList().size(), LocalDateTime.now(), 0L, 0L);
     }
 
     @Override
@@ -51,7 +51,7 @@ public class InterviewTrackServiceImpl implements InterviewTrackService {
         }
 
         log.info("Interview Track List: " + interviewTrackEnums);
-        return ResponseHandler.resHandler("Successfully fetched from db", HttpStatus.OK.value(), interviewTrackEnums, (long) interviewTrackEnums.size(), LocalDateTime.now());
+        return ResponseHandler.resHandler("Successfully fetched from db", HttpStatus.OK.value(), interviewTrackEnums, (long) interviewTrackEnums.size(), LocalDateTime.now(), 0L, 0L);
     }
 
     @Override
@@ -64,7 +64,7 @@ public class InterviewTrackServiceImpl implements InterviewTrackService {
         }
 
         log.info("Interview Track Fields List: " + interviewTrackDTOByInterviewTrack);
-        return ResponseHandler.resHandler("Successfully fetched from db", HttpStatus.OK.value(), interviewTrackDTOByInterviewTrack, LocalDateTime.now());
+        return ResponseHandler.resHandler("Successfully fetched from db", HttpStatus.OK.value(), interviewTrackDTOByInterviewTrack, LocalDateTime.now(), 0L, 0L);
     }
 
     @Override
@@ -83,7 +83,7 @@ public class InterviewTrackServiceImpl implements InterviewTrackService {
         interviewTrackDTO.setUpdatedAt(LocalDateTime.now());
 
         log.info("Interview Track Fields List: " + interviewTrackDTO);
-        return ResponseHandler.resHandler("Successfully added new interview fields", HttpStatus.OK.value(), interviewTrackDTO, LocalDateTime.now());
+        return ResponseHandler.resHandler("Successfully added new interview fields", HttpStatus.OK.value(), interviewTrackDTO, LocalDateTime.now(), 0L, 0L);
     }
 
     @Override
@@ -102,6 +102,6 @@ public class InterviewTrackServiceImpl implements InterviewTrackService {
         interviewTrackDTO.setUpdatedAt(LocalDateTime.now());
 
         log.info("Interview Track Fields List: " + interviewTrackDTO);
-        return ResponseHandler.resHandler("Successfully deleted interview fields", HttpStatus.OK.value(), interviewTrackDTO, LocalDateTime.now());
+        return ResponseHandler.resHandler("Successfully deleted interview fields", HttpStatus.OK.value(), interviewTrackDTO, LocalDateTime.now(), 0L, 0L);
     }
 }
