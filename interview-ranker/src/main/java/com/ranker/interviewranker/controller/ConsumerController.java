@@ -25,6 +25,6 @@ public class ConsumerController {
     @GetMapping("/fetch/interviews")
     public ResponseEntity<Object> fetchInterviews() {
         log.debug("Started function - getInterviews()");
-        return consumerService.getAllInterviews();
+        return consumerService.saveAllFetchInterviews();
     }
 }
