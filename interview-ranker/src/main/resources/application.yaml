@@ -8,15 +8,6 @@ spring:
     ansi:
       enabled: always
 
-#  data:
-#    mongodb:
-#      authentication-database: admin
-#      username: rootuser
-#      password: rootpassword
-#      database: interview-ranker
-#      port: 27017
-#      host: localhost
-
 logging:
   file:
     name: logs/interview_ranker.log
