@@ -1,7 +1,6 @@
 package com.ranker.interviewranker.domain.dto;
 
 import com.ranker.interviewranker.domain.model.track.InterviewTrackFields;
-import com.ranker.interviewranker.enums.InterviewTrackEnum;
 import lombok.*;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
@@ -15,7 +14,7 @@ import java.util.List;
 public class InterviewTrackDTO {
     @Id
     private String trackId;
-    private InterviewTrackEnum interviewTrack;
+    private String interviewTrack;
     private List<InterviewTrackFields> interviewTrackFieldsList;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;

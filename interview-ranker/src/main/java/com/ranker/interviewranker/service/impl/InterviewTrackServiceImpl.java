@@ -5,7 +5,6 @@ import com.ranker.interviewranker.domain.error.ErrorEntity;
 import com.ranker.interviewranker.domain.model.track.InterviewTrackFields;
 import com.ranker.interviewranker.domain.response.ErrorResponseHandler;
 import com.ranker.interviewranker.domain.response.ResponseHandler;
-import com.ranker.interviewranker.enums.InterviewTrackEnum;
 import com.ranker.interviewranker.repository.InterviewTrackRepository;
 import com.ranker.interviewranker.service.InterviewTrackService;
 import lombok.extern.slf4j.Slf4j;
@@ -43,7 +42,7 @@ public class InterviewTrackServiceImpl implements InterviewTrackService {
     @Override
     public ResponseEntity<Object> getFieldsTrack() {
         log.debug("Inside Service: getFieldsTrack()");
-        List<InterviewTrackEnum> interviewTrackEnums = new ArrayList<>();
+        List<String> interviewTrackEnums = new ArrayList<>();
         interviewTrackRepository.findAll().forEach(interviewTrackDTO -> interviewTrackEnums.add(interviewTrackDTO.getInterviewTrack()));
 
         if (interviewTrackEnums.isEmpty()) {
@@ -57,10 +56,10 @@ public class InterviewTrackServiceImpl implements InterviewTrackService {
     @Override
     public ResponseEntity<Object> getFieldsByTrack(String interviewTrack) {
         log.debug("Inside Service: getFieldsByTrack()");
-        InterviewTrackDTO interviewTrackDTOByInterviewTrack = interviewTrackRepository.getInterviewTrackDTOByInterviewTrack(InterviewTrackEnum.valueOf(interviewTrack)).get(0);
+        InterviewTrackDTO interviewTrackDTOByInterviewTrack = interviewTrackRepository.getInterviewTrackDTOByInterviewTrack(interviewTrack).get(0);
 
         if (interviewTrackDTOByInterviewTrack == null) {
-            return ErrorResponseHandler.errorResponse(new ErrorEntity(LocalDateTime.now(), HttpStatus.NOT_FOUND, HttpStatus.NOT_FOUND.toString(), "No interview track fields found for this track: " + InterviewTrackEnum.valueOf(interviewTrack)));
+            return ErrorResponseHandler.errorResponse(new ErrorEntity(LocalDateTime.now(), HttpStatus.NOT_FOUND, HttpStatus.NOT_FOUND.toString(), "No interview track fields found for this track: " + interviewTrack));
         }
 
         log.info("Interview Track Fields List: " + interviewTrackDTOByInterviewTrack);
@@ -72,11 +71,11 @@ public class InterviewTrackServiceImpl implements InterviewTrackService {
         log.debug("Inside Service: addFieldsInTracks()");
 
         InterviewTrackDTO interviewTrackDTO = interviewTrackRepository
-                .getInterviewTrackDTOByInterviewTrack(InterviewTrackEnum.valueOf(interviewTrack))
+                .getInterviewTrackDTOByInterviewTrack(interviewTrack)
                 .get(0);
 
         if (interviewTrackDTO == null) {
-            return ErrorResponseHandler.errorResponse(new ErrorEntity(LocalDateTime.now(), HttpStatus.NOT_FOUND, HttpStatus.NOT_FOUND.toString(), "No interview track fields found for this track: " + InterviewTrackEnum.valueOf(interviewTrack)));
+            return ErrorResponseHandler.errorResponse(new ErrorEntity(LocalDateTime.now(), HttpStatus.NOT_FOUND, HttpStatus.NOT_FOUND.toString(), "No interview track fields found for this track: " + interviewTrack));
         }
 
         interviewTrackDTO.getInterviewTrackFieldsList().addAll(interviewTrackFields);
@@ -91,11 +90,11 @@ public class InterviewTrackServiceImpl implements InterviewTrackService {
         log.debug("Inside Service: deleteFieldsInTracks()");
 
         InterviewTrackDTO interviewTrackDTO = interviewTrackRepository
-                .getInterviewTrackDTOByInterviewTrack(InterviewTrackEnum.valueOf(interviewTrack))
+                .getInterviewTrackDTOByInterviewTrack(interviewTrack)
                 .get(0);
 
         if (interviewTrackDTO == null) {
-            return ErrorResponseHandler.errorResponse(new ErrorEntity(LocalDateTime.now(), HttpStatus.NOT_FOUND, HttpStatus.NOT_FOUND.toString(), "No interview track fields found for this track: " + InterviewTrackEnum.valueOf(interviewTrack)));
+            return ErrorResponseHandler.errorResponse(new ErrorEntity(LocalDateTime.now(), HttpStatus.NOT_FOUND, HttpStatus.NOT_FOUND.toString(), "No interview track fields found for this track: " + interviewTrack));
         }
 
         interviewTrackDTO.getInterviewTrackFieldsList().removeAll(labelName);
