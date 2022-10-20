@@ -5,7 +5,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
@@ -36,6 +35,28 @@ public class ResponseHandler {
         res.put("version", VERSION);
         res.put("currentPage", numberOfPage);
         res.put("totalPages", numberOfItems);
+
+        return new ResponseEntity<>(res, HttpStatus.valueOf(status));
+    }
+
+    public static ResponseEntity<Object> resHandler(String message, int status, Long totalCount, @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss.SSS") LocalDateTime dateTime) {
+        Map<String, Object> res = new LinkedHashMap<>();
+        res.put("status", status);
+        res.put("totalCount", totalCount);
+        res.put("message", message);
+        res.put("date", dateTime);
+        res.put("version", VERSION);
+
+        return new ResponseEntity<>(res, HttpStatus.valueOf(status));
+    }
+
+    public static ResponseEntity<Object> resHandler(String message, int status, Object responseObj, @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss.SSS") LocalDateTime dateTime) {
+        Map<String, Object> res = new LinkedHashMap<>();
+        res.put("status", status);
+        res.put("body", responseObj);
+        res.put("message", message);
+        res.put("date", dateTime);
+        res.put("version", VERSION);
 
         return new ResponseEntity<>(res, HttpStatus.valueOf(status));
     }
