@@ -4,7 +4,7 @@
   "description": "dummy rest api server with json-server",
   "main": "index.js",
   "scripts": {
-    "server": "json-server --host 192.168.2.11 db.json"
+    "server": "json-server --host 192.168.29.96 db.json"
   },
   "author": "",
   "license": "ISC",
