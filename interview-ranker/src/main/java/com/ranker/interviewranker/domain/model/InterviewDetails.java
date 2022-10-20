@@ -8,7 +8,6 @@ import org.springframework.data.mongodb.core.mapping.Document;
 import java.time.LocalDateTime;
 
 @Getter
-@Setter
 @ToString
 @NoArgsConstructor
 @JsonInclude(JsonInclude.Include.NON_NULL)
@@ -20,4 +19,24 @@ public class InterviewDetails {
    private String recruiterName;
    private String interviewTrack;
    private String panelName;
+
+   public void setDateAndTime(LocalDateTime dateAndTime) {
+      this.dateAndTime = dateAndTime;
+   }
+
+   public void setCandidateName(String candidateName) {
+      this.candidateName = candidateName.toLowerCase();
+   }
+
+   public void setRecruiterName(String recruiterName) {
+      this.recruiterName = recruiterName.toLowerCase();
+   }
+
+   public void setInterviewTrack(String interviewTrack) {
+      this.interviewTrack = interviewTrack.toLowerCase();
+   }
+
+   public void setPanelName(String panelName) {
+      this.panelName = panelName.toLowerCase();
+   }
 }
