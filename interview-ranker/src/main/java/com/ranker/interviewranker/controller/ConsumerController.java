@@ -27,6 +27,12 @@ public class ConsumerController {
         return consumerService.viewAllSavedInterviews();
     }
 
+    @GetMapping("/view/single/interview/{candidateName}/{interviewTrack}")
+    public ResponseEntity<Object> viewSingleInterviews(@PathVariable String candidateName, @PathVariable String interviewTrack) {
+        log.debug("Started function - viewSingleInterviews()");
+        return consumerService.getSingleInterview(candidateName, interviewTrack);
+    }
+
     @PostMapping("/save/interview")
     public ResponseEntity<Object> saveInterview(@RequestBody InterviewDetails interviewDetails) {
         log.debug("Started function - saveInterview()");
@@ -39,9 +45,9 @@ public class ConsumerController {
         return consumerService.updateInterview(candidateName, interviewTrack, interviewDetails);
     }
 
-//    @DeleteMapping("/delete/interview/{candidateName}/{interviewTrack}")
-//    public ResponseEntity<Object> deleteInterview(@PathVariable String candidateName, @PathVariable String interviewTrack) {
-//        log.debug("Started function - deleteInterview()");
-//        return consumerService.deleteInterview(candidateName, interviewTrack);
-//    }
+    @DeleteMapping("/delete/interview/{candidateName}/{interviewTrack}")
+    public ResponseEntity<Object> deleteInterview(@PathVariable String candidateName, @PathVariable String interviewTrack) {
+        log.debug("Started function - deleteInterview()");
+        return consumerService.deleteInterview(candidateName, interviewTrack);
+    }
 }
