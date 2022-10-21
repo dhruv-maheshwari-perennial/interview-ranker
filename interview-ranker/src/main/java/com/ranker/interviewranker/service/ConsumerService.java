@@ -12,5 +12,7 @@ public interface ConsumerService {
 
     ResponseEntity<Object> updateInterview(String candidateName, String interviewTrack, InterviewDetails updatedInterviewDetails);
 
-//    ResponseEntity<Object> deleteInterview(String candidateName, String interviewTrack);
+    ResponseEntity<Object> deleteInterview(String candidateName, String interviewTrack);
+
+    ResponseEntity<Object> getSingleInterview(String candidateName, String interviewTrack);
 }

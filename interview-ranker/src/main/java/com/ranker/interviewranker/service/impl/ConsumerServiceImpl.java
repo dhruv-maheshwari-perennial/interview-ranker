@@ -28,6 +28,7 @@ public class ConsumerServiceImpl implements ConsumerService {
     @Autowired
     private ConsumerRepository consumerRepository;
 
+
     @Override
     public ResponseEntity<Object> saveAllFetchInterviews() {
         List<InterviewDetails> allInterviews = List.of(getInterviews());
@@ -75,7 +76,22 @@ public class ConsumerServiceImpl implements ConsumerService {
     @Override
     public ResponseEntity<Object> updateInterview(String candidateName, String interviewTrack, InterviewDetails updatedInterviewDetails) {
         log.debug("Inside updateInterview()");
-        List<InterviewDetails> interviewDetails = consumerRepository.findInterviewDetailsByCandidateName(candidateName, interviewTrack);
+        List<InterviewDetails> interviewDetails = viewSingleInterview(candidateName, interviewTrack);
+
+        if (interviewDetails.isEmpty()) {
+            return ErrorResponseHandler.errorResponse(new ErrorEntity(LocalDateTime.now(), HttpStatus.NOT_FOUND, HttpStatus.NOT_FOUND.toString(), "No interview details found with this candidate name and interview track"));
+        }
+
+        log.info(interviewDetails.toString());
+        consumerRepository.removeInterviewDetailsByCandidateNameAndInterviewTrack(candidateName, interviewTrack);
+        consumerRepository.save(updatedInterviewDetails);
+        return ResponseHandler.resHandler("Interview Details updated successfully", HttpStatus.OK.value(), updatedInterviewDetails, LocalDateTime.now());
+    }
+
+    @Override
+    public ResponseEntity<Object> deleteInterview(String candidateName, String interviewTrack) {
+        log.debug("Inside deleteInterview()");
+        List<InterviewDetails> interviewDetails = viewSingleInterview(candidateName, interviewTrack);
 
         if (interviewDetails.isEmpty()) {
             return ErrorResponseHandler.errorResponse(new ErrorEntity(LocalDateTime.now(), HttpStatus.NOT_FOUND, HttpStatus.NOT_FOUND.toString(), "No interview details found with this candidate name and interview track"));
@@ -83,21 +99,23 @@ public class ConsumerServiceImpl implements ConsumerService {
 
         log.info(interviewDetails.toString());
 
-//        consumerRepository.delete(interviewDetails.get(0));
-//        consumerRepository.save(updatedInterviewDetails);
-        return ResponseHandler.resHandler("Interview Details updated successfully", HttpStatus.OK.value(), interviewDetails, LocalDateTime.now());
+        consumerRepository.removeInterviewDetailsByCandidateNameAndInterviewTrack(candidateName, interviewTrack);
+        return ResponseHandler.resHandler("Interview Details deleted successfully", HttpStatus.OK.value(), interviewDetails, LocalDateTime.now());
     }
 
-//    @Override
-//    public ResponseEntity<Object> deleteInterview(String candidateName, String interviewTrack) {
-//        log.debug("Inside deleteInterview()");
-//        List<InterviewDetails> interviewDetails = consumerRepository.getInterviewDetailsByCandidateNameAndInterviewTrack(candidateName.trim().toLowerCase(), InterviewTrackEnum.valueOf(interviewTrack));
-//
-//        if (interviewDetails.isEmpty()) {
-//            return ErrorResponseHandler.errorResponse(new ErrorEntity(LocalDateTime.now(), HttpStatus.NOT_FOUND, HttpStatus.NOT_FOUND.toString(), "No interview details found with this candidate name and interview track"));
-//        }
-//
-//        consumerRepository.delete(interviewDetails.get(0));
-//        return ResponseHandler.resHandler("Interview Details deleted successfully", HttpStatus.OK.value(), interviewDetails, LocalDateTime.now());
-//    }
+    @Override
+    public ResponseEntity<Object> getSingleInterview(String candidateName, String interviewTrack) {
+        log.debug("Inside getSingleInterview()");
+        List<InterviewDetails> interviewDetails = viewSingleInterview(candidateName, interviewTrack);
+
+        if (interviewDetails.isEmpty()) {
+            return ErrorResponseHandler.errorResponse(new ErrorEntity(LocalDateTime.now(), HttpStatus.NOT_FOUND, HttpStatus.NOT_FOUND.toString(), "No interview details found with this candidate name and interview track"));
+        }
+
+        return ResponseHandler.resHandler("Interview fetched successfully", HttpStatus.OK.value(), interviewDetails, LocalDateTime.now());
+    }
+
+    private List<InterviewDetails> viewSingleInterview(String candidateName, String interviewTrack) {
+        return consumerRepository.findInterviewDetailsByCandidateName(candidateName, interviewTrack);
+    }
 }
